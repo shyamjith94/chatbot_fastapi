@@ -124,6 +124,8 @@ CHATBOT_FASTAPI/
 - Using uv (Package Manager)
 
 ```bash
+pip install uv or https://docs.astral.sh/uv/guides/install-python/
+
 uv sync
 uv run uvicorn main:app --reload
 
