@@ -46,18 +46,21 @@ The application will open in your default browser at `http://localhost:8501`.
 ## 🏗️ Project Structure
 
 ```
+
 CHATBOT_FASTAPI/
 │
-├── .langgraph_api/              # LangGraph API metadata (optional)
-├── .venv/                       # Virtual environment
-├── .vscode/                     # VSCode settings
+├── .langgraph_api/               # LangGraph API metadata (automatically generated)
+├── .venv/                        # uv-managed virtual environment
+├── .vscode/                      # Editor settings
+│
 ├── .gitignore
-├── .python-version
-├── .env                         # Environment variables
-├── app.py                       # Alternate entrypoint (optional)
-├── main.py                      # Main FastAPI application entrypoint
-├── langgraph.json               # LangGraph configuration
-├── pyproject.toml               # Project metadata + dependencies
+├── .python-version               # Python version for uv/pyenv
+├── .env                          # Environment variables
+│
+├── app.py                        # Optional entrypoint (FastAPI)
+├── main.py                       # Primary FastAPI app entrypoint
+├── langgraph.json                # LangGraph workflow configuration
+├── pyproject.toml                # uv project file (dependencies + metadata)
 │
 ├── src/
 │   ├── __pycache__/
@@ -66,51 +69,51 @@ CHATBOT_FASTAPI/
 │   │   ├── __pycache__/
 │   │   ├── __init__.py
 │   │   │
-│   │   ├── routes/              # API route handlers
+│   │   ├── routes/               # API route handlers
 │   │   │   ├── __pycache__/
 │   │   │   ├── __init__.py
-│   │   │   └── blog_route.py    # /blog or /generate endpoint
+│   │   │   └── blog_route.py     # Blog generation/translation endpoint
 │   │   │
-│   │   └── schema/              # Pydantic schemas
+│   │   └── schema/               # Pydantic models
 │   │       ├── __pycache__/
 │   │       ├── __init__.py
-│   │       ├── blog_schema.py   # Request/response schemas
-│   │       └── schema_base.py   # Base schemas/validators
+│   │       ├── blog_schema.py    # Request/response schemas
+│   │       └── schema_base.py    # Shared schema base classes
 │   │
-│   ├── chatbot_fastapi.egg-info/  # Python package metadata
+│   ├── chatbot_fastapi.egg-info/ # Project install metadata
 │   │
 │   ├── core/
 │   │   ├── __pycache__/
 │   │   ├── __init__.py
-│   │   ├── settings.py          # Config + environment settings
-│   │   └── use_case_enum.py     # Enum for blog use cases
+│   │   ├── settings.py           # Settings using Pydantic BaseSettings
+│   │   └── use_case_enum.py      # Blog use-case enumeration
 │   │
 │   ├── graphs/
 │   │   ├── __pycache__/
 │   │   ├── __init__.py
-│   │   ├── blog_graph.py        # Blog workflow graph
-│   │   └── langsmith.py         # LangSmith instrumentation
+│   │   ├── blog_graph.py         # Main LangGraph workflow
+│   │   └── langsmith.py          # LangSmith tracing/logging
 │   │
 │   ├── llm/
 │   │   ├── __pycache__/
 │   │   ├── __init__.py
-│   │   └── groq_llm.py          # Groq API wrapper client
+│   │   └── groq_llm.py           # Groq LLM client wrapper
 │   │
 │   ├── nodes/
 │   │   ├── __pycache__/
 │   │   ├── __init__.py
-│   │   └── blog_node.py         # LangGraph nodes for title/content/translation
+│   │   └── blog_node.py          # LangGraph node definitions
 │   │
 │   ├── states/
 │   │   ├── __pycache__/
 │   │   ├── __init__.py
-│   │   └── blog_state.py        # Workflow state object
+│   │   └── blog_state.py         # Workflow state model
 │   │
 │   └── utils/
 │       ├── __pycache__/
-│       └── __init__.py          # Utilities module
+│       └── __init__.py           # Utilities (logger, helpers)
 │
-└── README.md (your file)
+└── README.md
 
 
 ```
@@ -118,13 +121,15 @@ CHATBOT_FASTAPI/
 
 ## 📦 Installation
 
+- Using uv (Package Manager)
+
 ```bash
-git clone <repository-url>
-cd <project-directory>
+uv sync
+uv run uvicorn main:app --reload
 
-python -m venv .venv
-.venv\Scripts\activate   # On Windows
-# OR
-source .venv/bin/activate  # On macOS/Linux
+- Add a dependency
 
-pip install -r requirements.txt
+uv add fastapi
+uv add langgraph
+uv add groq
+
