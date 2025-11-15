@@ -1,0 +1,1 @@
+from .blog_route import blog_route
