@@ -38,13 +38,13 @@ async def generate_blog(*, blog_in:BlogRequest):
                 "errors": error_details
             }
         )
-    # except Exception as e:
-    #     print(f"*** Error blog post: {str(e)}")
-    #     raise HTTPException(
-    #         status_code=500,
-    #         detail={
-    #             "message": "Internal server error",
-    #             "error": str(e)
-    #         }
-    #     )
+    except Exception as e:
+        print(f"*** Error blog post: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail={
+                "message": "Internal server error",
+                "error": str(e)
+            }
+        )
 
